@@ -1,11 +1,22 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline'
-import { useState } from 'react'
-import InvoiceDisplay from './components/InvoiceDisplay'
+import { useEffect, useState } from 'react';
+import Generate from '../components/Generate'
+import InvoiceCard from '../components/InvoiceCard';
+import useInvoice, { useHasHydrated } from '../store/store'
+
 
 const Home: NextPage = () => {
-  const [ifOpened, setIfOpened] = useState(false)
+
+  const hasHydrated = useHasHydrated()
+  const Invoices = useInvoice(state => state.Invoice)
+  const unedit = useInvoice(state => state.unedit)
+
+  useEffect(() => {
+    unedit()
+  }, [])
+  
+
   return (
     <div className="relative bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -26,19 +37,7 @@ const Home: NextPage = () => {
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                 <span className="block color-primary xl:inline">Invoice Generator</span>
               </h1>
-              <div className='mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start'>
-                <input type="text" placeholder='Enter Name' className='rounded-xl pl-5 border mr-5' size={40} />
-                <span>
-                  <div className="rounded-md shadow">
-                    <a
-                      href="#"
-                      className="bg-primary hover:bg-secondary active:bg-tertiary rounded-xl w-full flex items-center justify-center px-8 py-3 border-transparent text-base font-medium rounded-md md:py-4 md:text-lg md:px-10"
-                    >
-                      Generate Invoice
-                    </a>
-                  </div>
-                </span>
-              </div>
+              <Generate />
             </div>
             <div>
               <main className="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
@@ -47,35 +46,12 @@ const Home: NextPage = () => {
                     <span className="block blacky-color xl:inline">Saved Invoices</span>
                   </h1>
                 </div>
-                <div className='border border-2 pr-10 pl-7 py-5 rounded-xl mt-5'>
-                  <div className='grid grid-cols-2'>
-                    <div className='grid grid-rows-2 '>
-                      <div className='text-xl font-bold'>
-                        Invoice 1
-                      </div>
-                      <div className='text-sm'>
-                        5th May 2021
-                      </div>
-                    </div>
-                    <div className='flex items-center'>
-                      <a
-                        href="#"
-                        onClick={() => setIfOpened(!ifOpened)}
-                        className="color-primary hover:bg-light rounded-full w-full flex items-center justify-end text-base font-medium px-2 py-1 md:text-lg"
-                      >
-                        View Invoice
-                        {ifOpened && (
-                          <ChevronUpIcon className="h-6 w-6" aria-hidden="true" />
-                        )}
-                        {!ifOpened && (
-                          <ChevronDownIcon className="h-6 w-6" aria-hidden="true" />
-                        )}
-                      </a>
-                    </div>
-                  </div>
-                  {ifOpened && (
-                    <InvoiceDisplay></InvoiceDisplay>
-                  )}
+                <div>
+                  {
+                    hasHydrated && Invoices.map(invoice => (
+                      <InvoiceCard id={invoice.id} key={invoice.id} title={invoice.invoice_name} date="5th May 2021" invoiceData={[]} />
+                    ))
+                  }
                 </div>
               </main>
             </div>
