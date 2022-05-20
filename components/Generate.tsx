@@ -19,7 +19,7 @@ const Generate = () => {
               router.push(`/invoice/${count + 1}/edit`)
             }}
             href="#"
-            className="bg-primary hover:bg-secondary active:bg-tertiary rounded-xl w-full flex items-center justify-center px-8 py-3 border-transparent text-base font-medium md:py-4 md:text-lg md:px-10"
+            className="text-white bg-primary hover:bg-secondary active:bg-tertiary rounded-xl w-full flex items-center justify-center px-8 py-3 border-transparent font-medium md:py-4 md:text-lg md:px-10"
           >
             Generate Invoice
           </a>

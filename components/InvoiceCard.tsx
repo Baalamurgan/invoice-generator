@@ -19,7 +19,7 @@ const InvoiceCard = ({ title, date, id }: { title: string, date: string, id: num
             {date}
           </p>
         </div>
-        <div className='flex items-center'>
+        <div className='flex items-center justify-end'>
           <Button onClick={() => setIfOpened(!ifOpened)} variant="tertiary">
             View Invoice
             {ifOpened && (

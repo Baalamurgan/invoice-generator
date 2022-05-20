@@ -5,12 +5,12 @@ const Button = ({ children, variant, ...props }: { children: React.ReactNode, va
     return (
         <button
             className={classNames(
-                "hover:bg-light w-full font-bold rounded-lg flex items-center justify-end px-4 py-2"
+                "hover:bg-light font-bold rounded-lg flex items-center justify-end px-4 py-2"
                 ,
                 {
-                    "text-bg-light bg-primary hover:bg-secondary active:bg-tertiary justify-center": variant === "primary",
+                    "text-bg-light text-white bg-primary hover:bg-secondary active:bg-tertiary justify-center": variant === "primary",
                     "color-primary bg-light text-md": variant === "secondary",
-                    "color-primary bg-g-white": variant === "tertiary"
+                    "color-primary bg-g-white hover:bg-light": variant === "tertiary"
                 }
             )}
             {...props}
