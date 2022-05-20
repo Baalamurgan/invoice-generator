@@ -1,12 +1,9 @@
 import moment from 'moment';
-import type { NextPage } from 'next'
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useInvoice, { useHasHydrated } from '../store/store';
 import InvoiceGenerator from './InvoiceGenerator'
 
 const InvoiceDisplay = ({ invoiceId }: { invoiceId: number }) => {
-
     const hasHydrated = useHasHydrated()
     const findInvoiceById = useInvoice(state => state.findInvoiceById)
     useEffect(() => {
@@ -31,7 +28,7 @@ const InvoiceDisplay = ({ invoiceId }: { invoiceId: number }) => {
                         Amount Paid
                     </div>
                     <div className='color-primary text-lg font-bold'>
-                        {hasHydrated && editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0)}
+                        ${hasHydrated && editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0).toFixed(2)}
                     </div>
                 </div>
             </div>
@@ -49,7 +46,7 @@ const InvoiceDisplay = ({ invoiceId }: { invoiceId: number }) => {
                         {hasHydrated && editInvoice.products.map(product => {
                             return (
                                 <tr key={product.id}>
-                                    <td>{product.title}</td>
+                                    <td style={{ maxWidth: '300px' }}>{product.title}</td>
                                     <td>${product.price}</td>
                                     <td>{product.quantity}</td>
                                     <td>${product.quantity * product.price}</td>
@@ -62,7 +59,7 @@ const InvoiceDisplay = ({ invoiceId }: { invoiceId: number }) => {
             <div className='grid grid-cols-3 mt-5 text-right font-bold text-md pr-5'>
                 <div className='col-span-2'>Total</div>
                 <div>
-                    {hasHydrated && editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0)}
+                    ${hasHydrated && editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0).toFixed(2)}
                 </div>
             </div>
         </InvoiceGenerator>

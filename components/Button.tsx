@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 
-const Button = ({ children, variant, ...props }) => {
+const Button = ({ children, variant, ...props }: { children: React.ReactNode, variant: string, onClick: () => void }) => {
     return (
         <button
             className={classNames(

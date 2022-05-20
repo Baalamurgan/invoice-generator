@@ -6,12 +6,6 @@ import useInvoice, { useHasHydrated } from '../store/store';
 import Dropdown from './Dropdown';
 import InvoiceGenerator from './InvoiceGenerator'
 
-interface OptionsInterface {
-    value: string,
-    label: string,
-    rate: number,
-}
-
 export interface Products {
     id: number;
     title: string;
@@ -44,14 +38,12 @@ export interface Rating {
     count: number;
 }
 
-
 const NewInvoice = () => {
 
     const hasHydrated = useHasHydrated()
     const router = useRouter();
     const { invoiceId } = router.query;
     const { data } = useQuery<Products[]>("products", () => fetch("https://fakestoreapi.com/products").then(res => res.json()))
-
     const [selectedProducts, setSelectedProduct] = useState<SelectedProducts[]>([]);
     const AddProduct = useInvoice(state => state.addProduct)
     const handleClick = (event: any) => {
@@ -103,7 +95,7 @@ const NewInvoice = () => {
                         Amount Paid
                     </div>
                     <div className='color-primary text-xl font-bold'>
-                        {editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0)}
+                        ${hasHydrated && editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0).toFixed(2)}
                     </div>
                 </div>
             </div>
@@ -118,7 +110,7 @@ const NewInvoice = () => {
                         </tr>
                     </thead>
                     <tbody className='text-sm font-bold text-center'>
-                        {hasHydrated && selectedProducts?.map((product, i) => (
+                        {selectedProducts?.map((product, i) => (
                             <tr key={i}>
                                 <td>
                                     {product.title}
@@ -137,6 +129,7 @@ const NewInvoice = () => {
                     </tbody>
                 </table>
                 <Dropdown
+                    noOptionsMessage={() => <div>Loading...</div>}
                     onChange={handleClick}
                     options={data && data?.map(product => ({ value: product.id, label: product.title })).filter(product => {
                         for (let selectedProduct of selectedProducts) {
@@ -151,8 +144,8 @@ const NewInvoice = () => {
                 />
             </div>
             <div className='grid grid-cols-3 mt-5 text-right font-bold text-md pr-5'>
-                <div className='col-span-2' >Total</div>
-                <div>{selectedProducts.reduce((prev, current) => (current.price * current.quantity) + prev, 0)}</div>
+                <div className='col-span-2'>Total</div>
+                <div>${hasHydrated && selectedProducts.reduce((prev, current) => (current.price * current.quantity) + prev, 0).toFixed(2)}</div>
             </div>
         </InvoiceGenerator>
     )

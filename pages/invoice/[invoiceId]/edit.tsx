@@ -9,11 +9,8 @@ import IconButton from '../../../components/IconButton'
 import useInvoice, { useHasHydrated } from '../../../store/store'
 
 export const InvoiceTitle = () => {
-
   const hasHydrated = useHasHydrated()
-
   const invoice_name = useInvoice(state => state?.editInvoice?.invoice_name)
-
   return <p className='font-bold'>Invoice: {hasHydrated && invoice_name}
     <PencilIcon className='inline h-4 w-4' aria-hidden="true" />
   </p>

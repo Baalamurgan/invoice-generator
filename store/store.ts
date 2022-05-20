@@ -70,7 +70,23 @@ const useInvoice = create(
             )),
             unedit: () => {
                 set(() => ({
-                    isEdit: false
+                    isEdit: false,
+                    editInvoice: {
+                        id: 0,
+                        invoice_name: '',
+                        transation_date: new Date(),
+                        transation_name: '',
+                        products: [],
+                        amount: 0,
+                    },
+                    unsaveInvoice: {
+                        id: 0,
+                        invoice_name: '',
+                        transation_name: '',
+                        transation_date: new Date(),
+                        products: [],
+                        amount: 0,
+                    },
                 }))
             },
             findInvoiceById: (id: number) => {

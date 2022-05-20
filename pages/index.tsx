@@ -1,21 +1,19 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Generate from '../components/Generate'
 import InvoiceCard from '../components/InvoiceCard';
 import useInvoice, { useHasHydrated } from '../store/store'
 
 
 const Home: NextPage = () => {
-
   const hasHydrated = useHasHydrated()
   const Invoices = useInvoice(state => state.Invoice)
   const unedit = useInvoice(state => state.unedit)
-
   useEffect(() => {
     unedit()
   }, [])
-  
+
 
   return (
     <div className="relative bg-white overflow-hidden">
@@ -26,7 +24,7 @@ const Home: NextPage = () => {
               <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                 <div className="flex items-center justify-between w-full md:w-auto">
                   <a href="#">
-                    <Image src="/../public/logo.png" width={50} height={50} />
+                    <Image src="/logo.png" width={50} height={50} alt="Invoice generator logo" />
                   </a>
                 </div>
               </div>
@@ -59,7 +57,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <Image src="/../public/invoice.png" width={600} height={600} />
+        <Image src="/invoice.png" width={600} height={600} alt="Invoice generator design" />
       </div>
     </div>
   )
