@@ -22,7 +22,6 @@ export const InvoiceTitle = () => {
 const InvoicePage = () => {
   const router = useRouter();
   const { invoiceId } = router.query;
-
   const UpdateInvoice = useInvoice(state => state.updateInvoice)
   const UpdateEditInvoice = useInvoice(state => state.updateEditInvoice)
   return (

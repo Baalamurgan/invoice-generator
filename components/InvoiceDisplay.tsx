@@ -1,3 +1,4 @@
+import moment from 'moment';
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -19,10 +20,10 @@ const InvoiceDisplay = ({ invoiceId }: { invoiceId: number }) => {
             <div className='grid grid-cols-2 px-5 mt-5'>
                 <div className='grid grid-rows-2 pl-5'>
                     <div className='text-lg font-bold'>
-                        {editInvoice.transation_name}
+                        {hasHydrated && editInvoice.transation_name}
                     </div>
                     <div className='text-sm'>
-                        {editInvoice.transation_date.toString()}
+                        Paid on {hasHydrated && moment(editInvoice.transation_date).format('MM/DD/YYYY')}
                     </div>
                 </div>
                 <div className='grid grid-rows-2 justify-end mr-5 text-left'>
@@ -30,7 +31,7 @@ const InvoiceDisplay = ({ invoiceId }: { invoiceId: number }) => {
                         Amount Paid
                     </div>
                     <div className='color-primary text-lg font-bold'>
-                        {editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0)}
+                        {hasHydrated && editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0)}
                     </div>
                 </div>
             </div>
@@ -45,9 +46,9 @@ const InvoiceDisplay = ({ invoiceId }: { invoiceId: number }) => {
                         </tr>
                     </thead>
                     <tbody className='text-sm font-bold'>
-                        {hasHydrated && editInvoice.products.map((product, i) => {
+                        {hasHydrated && editInvoice.products.map(product => {
                             return (
-                                <tr>
+                                <tr key={product.id}>
                                     <td>{product.title}</td>
                                     <td>${product.price}</td>
                                     <td>{product.quantity}</td>
@@ -61,7 +62,7 @@ const InvoiceDisplay = ({ invoiceId }: { invoiceId: number }) => {
             <div className='grid grid-cols-3 mt-5 text-right font-bold text-md pr-5'>
                 <div className='col-span-2'>Total</div>
                 <div>
-                    {editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0)}
+                    {hasHydrated && editInvoice.products.reduce((prev, current) => (current.price * current.quantity) + prev, 0)}
                 </div>
             </div>
         </InvoiceGenerator>

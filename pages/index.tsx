@@ -49,7 +49,7 @@ const Home: NextPage = () => {
                 <div>
                   {
                     hasHydrated && Invoices.map(invoice => (
-                      <InvoiceCard id={invoice.id} key={invoice.id} title={invoice.invoice_name} date="5th May 2021" invoiceData={[]} />
+                      <InvoiceCard id={invoice.id} key={invoice.id} title={invoice.invoice_name} date="5th May 2021" />
                     ))
                   }
                 </div>
