@@ -3,8 +3,8 @@ import React from 'react'
 
 const InvoiceGenerator = ({ children }: { children: any }) => {
     return (
-        <div className="shadow-xl mx-auto mb-10 max-w-2xl rounded-b-lg min-h-[75vh]" style={{ borderTop: "6px solid #7161C5" }}>
-            <div className='grid grid-cols-2 h-40 bg-light px-5'>
+        <div className="shadow-xl mx-auto mb-10 max-w-2xl rounded-b-lg" style={{ borderTop: "6px solid #7161C5" }}>
+            <div className='grid grid-cols-2 bg-light px-5 py-3'>
                 <div className="flex items-center justify-between">
                     <a href="#">
                         <Image src="/logo.png" width={16} height={16} alt="Invoice generator logo" />

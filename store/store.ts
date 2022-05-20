@@ -6,8 +6,8 @@ import { SelectedProducts } from '../components/NewInvoice';
 interface InvoiceType {
     id: number,
     invoice_name: string;
-    transation_name: string;
-    transation_date: Date;
+    transaction_name: string;
+    transaction_date: Date;
     products: SelectedProducts[];
     amount: number;
 }
@@ -39,16 +39,16 @@ const useInvoice = create(
             editInvoice: {
                 id: 0,
                 invoice_name: '',
-                transation_date: new Date(),
-                transation_name: '',
+                transaction_date: new Date(),
+                transaction_name: '',
                 products: [],
                 amount: 0,
             },
             unsaveInvoice: {
                 id: 0,
                 invoice_name: '',
-                transation_name: '',
-                transation_date: new Date(),
+                transaction_name: '',
+                transaction_date: new Date(),
                 products: [],
                 amount: 0,
             },
@@ -56,7 +56,7 @@ const useInvoice = create(
                 {
                     unsaveInvoice: {
                         ...state.unsaveInvoice,
-                        transation_name: name
+                        transaction_name: name
                     }
                 }
             )),
@@ -74,16 +74,16 @@ const useInvoice = create(
                     editInvoice: {
                         id: 0,
                         invoice_name: '',
-                        transation_date: new Date(),
-                        transation_name: '',
+                        transaction_date: new Date(),
+                        transaction_name: '',
                         products: [],
                         amount: 0,
                     },
                     unsaveInvoice: {
                         id: 0,
                         invoice_name: '',
-                        transation_name: '',
-                        transation_date: new Date(),
+                        transaction_name: '',
+                        transaction_date: new Date(),
                         products: [],
                         amount: 0,
                     },
@@ -121,8 +121,8 @@ const useInvoice = create(
                     amount: 0,
                     invoice_name: name,
                     products: [],
-                    transation_name: "Transation " + (state.count + 1),
-                    transation_date: new Date(),
+                    transaction_name: "Transaction " + (state.count + 1),
+                    transaction_date: new Date(),
                 }]
             })),
             addProduct: (products) =>
