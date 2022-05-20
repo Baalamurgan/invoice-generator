@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../../components/Navbar'
 import { useRouter } from 'next/router'
-import { PencilIcon, EyeIcon } from '@heroicons/react/outline'
+import { PencilIcon, EyeIcon, CheckIcon } from '@heroicons/react/outline'
 import Button from '../../../components/Button'
 import Link from 'next/link'
 import NewInvoice from '../../../components/NewInvoice'
@@ -9,11 +9,30 @@ import IconButton from '../../../components/IconButton'
 import useInvoice, { useHasHydrated } from '../../../store/store'
 
 export const InvoiceTitle = () => {
+
   const hasHydrated = useHasHydrated()
   const invoice_name = useInvoice(state => state?.editInvoice?.invoice_name)
-  return <p className='font-bold'>Invoice: {hasHydrated && invoice_name}
-    <PencilIcon className='inline h-4 w-4' aria-hidden="true" />
-  </p>
+  const ChangeInvoiceName = useInvoice(state => state.changeInvoiceName)
+  const [isEdit, setIsEdit] = useState(false)
+  const [invoiceName, setInvoiceName] = useState(invoice_name)
+
+  if (isEdit) {
+    return (
+      <>
+        <input value={invoiceName} onChange={(e) => setInvoiceName(e.target.value)} type="text" placeholder='Enter Inoice Name' className='rounded-xl font-bold pl-2 py-1 border' />
+        <CheckIcon className='inline h-6 w-6 cursor-pointer ml-1' aria-hidden="true" onClick={() => {
+          setIsEdit(false)
+          ChangeInvoiceName(invoiceName)
+        }
+        } />
+      </>
+    )
+  }
+  else {
+    return <p className='font-bold'>{hasHydrated && invoice_name}
+      <PencilIcon className='inline h-4 w-4 cursor-pointer ml-1' aria-hidden="true" onClick={() => setIsEdit(true)} />
+    </p>
+  }
 }
 
 const InvoicePage = () => {
